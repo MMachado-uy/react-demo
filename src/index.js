@@ -4,7 +4,12 @@ import ReactDOM from 'react-dom'
 let target = document.getElementById('vanilla');
 
 setInterval((call) => {
-    target.innerHTML = '<div><h1>Son las <span>' + new Date().toLocaleTimeString() + '</span></h1></div>'
+    target.innerHTML =
+          '<div>'
+        +     '<h1>'
+        +         'Son las <span>' + new Date().toLocaleTimeString() + '</span>'
+        +     '</h1>'
+        + '</div>'
 }, 1000)
 
 class Clock extends React.Component {
