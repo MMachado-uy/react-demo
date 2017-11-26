@@ -1,3 +1,5 @@
+$largeFontSize: 190px;
+
 html {
     height: 100%;
 }
@@ -22,10 +24,10 @@ body {
     justify-content: center;
 
     .large {
-        font-size: 90px;
+        font-size: $largeFontSize;
     }
 
     .small {
-        font-size: 45px;
+        font-size: $largeFontSize / 2;
     }
 }
