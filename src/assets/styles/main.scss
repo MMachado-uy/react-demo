@@ -1,38 +1,4 @@
-$largeFontSize: 190px;
+@import 'variables';
+@import 'utilities';
 
-html {
-    height: 100%;
-}
-
-body {
-    background-attachment: fixed;
-    background-image: url(https://source.unsplash.com/random/1920x1080);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: rgb(51, 51, 51);
-    font-family: Helvetica,Arial;
-    height: 100%;
-    margin: 0;
-    text-shadow: rgb(255, 255, 255) 2px 2px 1px;
-}
-
-#clock {
-    align-items: center;
-    display: flex;
-    height: 100%;
-    justify-content: center;
-
-    .fecha {
-        font-size: 40px;
-        text-align: center;
-    }
-
-    .large {
-        font-size: $largeFontSize;
-    }
-
-    .small {
-        font-size: $largeFontSize / 2;
-    }
-}
+@import 'layout';

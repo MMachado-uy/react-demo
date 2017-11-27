@@ -1,0 +1,31 @@
+.light-up {
+    background-image: radial-gradient(white 0%, rgba(255, 255, 255, 0.3) 25%, transparent 60%);
+}
+
+.fixed {
+    position: fixed;
+}
+
+.top {     
+    &-left {
+        top: $screen-margin;
+        left: $screen-margin;
+    }
+    
+    &-right {
+        top: $screen-margin;
+        right: $screen-margin;
+    }
+}
+
+.bottom {    
+    &-left {
+        bottom: $screen-margin;
+        left: $screen-margin;
+    }
+    
+    &-right {
+        bottom: $screen-margin;
+        right: $screen-margin;
+    }
+}

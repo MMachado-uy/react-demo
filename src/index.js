@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Clock from './components/Clock.jsx'
+import App from './components/App.jsx'
 
 import './assets/styles/main.scss'
 
 ReactDOM.render(
-    <Clock />,
-    document.getElementById('clock')
+    <App />,
+    document.getElementById('App')
 );
