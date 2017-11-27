@@ -4,7 +4,7 @@
   "description": "Simple React App for demo purposes",
   "main": "index.js",
   "scripts": {
-    "build": "npm run clean:dist && webpack --progress --profile --colors",
+    "build": "npm run clean:dist && webpack --progress --profile --colors --optimize-minimize",
     "clean:dist": "rimraf -- docs",
     "start": "webpack-dev-server"
   },

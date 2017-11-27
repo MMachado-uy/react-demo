@@ -16,6 +16,8 @@ class Clock extends React.Component {
     tick() {
         this.setState({
             date: new Date()
+        }, () => {
+            document.title = this.state.date.toLocaleTimeString();
         });
     }
 
