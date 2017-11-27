@@ -1,15 +1,6 @@
-const path = require('path');
-const webpack = require('webpack');
-
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-var webpackConfig = {
-    entry: 'index.js',
-    output: {
-        path: __dirname + '/docs',
-        filename: 'bundle.js'
-    },
-    plugins: [new HtmlWebpackPlugin()]
-};
+var path = require('path');
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
@@ -52,6 +43,11 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        }),
+        new HtmlWebpackPlugin({
+            template: 'index.html',
+            filename: 'index.html',
+            inject: 'body'
         })
     ],
     stats: {
