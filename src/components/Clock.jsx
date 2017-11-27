@@ -20,14 +20,48 @@ class Clock extends React.Component {
     }
 
     render() {
+        let { date } = this.state 
+
+        let dia = [
+            'Domingo',
+            'Lunes',
+            'Martes',
+            'Miércoles',
+            'Jueves',
+            'Viernes',
+            'Sábado'
+        ]
+
+        let mes = [
+            'Enero',
+            'Febrero',
+            'Marzo',
+            'Abril',
+            'Mayo',
+            'Junio',
+            'Julio',
+            'Agosto',
+            'Setiembre',
+            'Octubre',
+            'Noviembre',
+            'Diciembre'
+        ]
+
         return (
             <div>
-                <span className="large">
-                    {this.state.date.getHours()}:{this.state.date.getMinutes()}
-                </span>
-                <span className="small">
-                    {(this.state.date.getSeconds() < 10) ? '0' + this.state.date.getSeconds() : this.state.date.getSeconds()}
-                </span>
+                <div className="hora">
+                    <span className="large">
+                        {(date.getHours() < 10) ? "0" + date.getHours() : date.getHours()}
+                        :
+                        {(date.getMinutes() < 10) ? "0" + date.getMinutes() : date.getMinutes()}
+                    </span>
+                    <span className="small">
+                        {(date.getSeconds() < 10) ? '0' + date.getSeconds() : date.getSeconds()}
+                    </span>
+                </div>
+                <div className="fecha">
+                    { dia[date.getDay()] } { date.getDate() } de { mes[date.getMonth()] }
+                </div>
             </div>
         );
     }
