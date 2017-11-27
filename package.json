@@ -4,6 +4,8 @@
   "description": "Simple React App for demo purposes",
   "main": "index.js",
   "scripts": {
+    "build": "npm run clean:dist && webpack --progress --profile --colors",
+    "clean:dist": "rimraf -- docs",
     "start": "webpack-dev-server"
   },
   "author": "Mauricio Machado",
