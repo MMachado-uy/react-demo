@@ -26,7 +26,7 @@ class Weather extends React.Component {
         axios.get(`//api.ipify.org`)
         .then(res => {
             if (res.status >= 200 && res.status < 300) {
-                axios.get(`//ip-api.com/json/${res.data}`)
+                axios.get(`http://ip-api.com/json/${res.data}`)
                 .then(res => {
                     if (res.status >= 200 && res.status < 300) {
 						let { lat, lon } = res.data
