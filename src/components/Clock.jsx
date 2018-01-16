@@ -50,7 +50,7 @@ class Clock extends React.Component {
         ]
 
         return (
-            <div>
+            <div id="Clock">
                 <div className="hora">
                     <span className="large">
                         {(date.getHours() < 10) ? "0" + date.getHours() : date.getHours()}

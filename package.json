@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npm run clean:dist && webpack --progress --profile --colors --optimize-minimize",
     "clean:dist": "rimraf -- docs",
-    "start": "webpack-dev-server --open"
+    "start": "webpack-dev-server --open",
+    "start-hard": "npm run build && npm start"
   },
   "author": "Mauricio Machado",
   "license": "MIT",

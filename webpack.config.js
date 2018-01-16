@@ -39,10 +39,17 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
+                test: /\.(ico|jpg|jpeg|png|gif|webp|svg)(\?.*)?$/,
                 loader: 'file-loader',
                 query: {
-                    name: 'static/media/[name].[ext]'
+                    name: 'media/[name].[ext]'
+                }
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
+                loader: 'file-loader',
+                query: {
+                    name: 'fonts/[name].[ext]'
                 }
             }
         ]

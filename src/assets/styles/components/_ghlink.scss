@@ -1,0 +1,11 @@
+#Ghlink {
+    img {
+        opacity: 0.2;
+        transition: opacity 0.200s;
+        width: 20px;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}

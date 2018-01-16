@@ -14,36 +14,3 @@ body {
     margin: 0;
     text-shadow: rgb(255, 255, 255) 2px 2px 1px;
 }
-
-#App {
-    align-items: center;
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    position: relative;
-    
-    .fecha {
-        font-size: $baseFontSize / 4;
-        text-align: center;
-    }
-    
-    .large {
-        font-size: $baseFontSize;
-    }
-    
-    .small {
-        font-size: $baseFontSize / 2;
-    }
-}
-
-#gh-link {
-    img {
-        opacity: 0.2;
-        transition: opacity 0.200s;
-        width: 20px;
-
-        &:hover {
-            opacity: 1;
-        }
-    }
-}
