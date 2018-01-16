@@ -26,11 +26,14 @@ class Weather extends React.Component {
         axios.get(`//api.ipify.org`)
         .then(res => {
             if (res.status >= 200 && res.status < 300) {
-                axios.get(`http://ip-api.com/json/${res.data}`)
+                axios.get(`//freegeoip.net/json/${res.data}`)
                 .then(res => {
                     if (res.status >= 200 && res.status < 300) {
-						let { lat, lon } = res.data
-						this.setState({lat, lon}, res => {
+						let { latitude, longitude } = res.data
+						this.setState({
+                            lat: latitude, 
+                            lon: longitude
+                        }, res => {
 							this.getCurrentWeather()
 						})
                     }
