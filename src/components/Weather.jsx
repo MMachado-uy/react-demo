@@ -4,8 +4,8 @@ import axios from 'axios'
 class Weather extends React.Component {
     constructor(props) {
 		super(props);
-		
-		this.state = { 
+
+		this.state = {
 			lat: '',
             lon: '' ,
             weatherDesc: {},
@@ -21,7 +21,7 @@ class Weather extends React.Component {
     componentWillMount() {
         this.getClientLocationAndWeather()
     }
-    
+
     getClientLocationAndWeather() {
         axios.get(`//api.ipify.org`)
         .then(res => {
@@ -29,10 +29,12 @@ class Weather extends React.Component {
                 axios.get(`//freegeoip.net/json/${res.data}`)
                 .then(res => {
                     if (res.status >= 200 && res.status < 300) {
-						let { latitude, longitude } = res.data
+                        let { latitude, longitude, city, country_name } = res.data
 						this.setState({
-                            lat: latitude, 
-                            lon: longitude
+                            lat: latitude,
+                            lon: longitude,
+                            city,
+                            country: country_name
                         }, res => {
 							this.getCurrentWeather()
 						})
@@ -64,16 +66,14 @@ class Weather extends React.Component {
                 weatherData,
                 weatherLoaded: true,
                 clouds,
-                wind,
-                city,
-                country
+                wind
             })
 		})
     }
-    
+
     mapWeatherIcon(apiCode) {
         let iconClass = ''
-        
+
         let iconMap = {
             '01d': 'wi wi-day-sunny',
             '01n': 'wi wi-night-clear',
@@ -117,26 +117,32 @@ class Weather extends React.Component {
     }
 
     render() {
-        let { 
+        let {
             weatherDesc,
             weatherData,
             weatherLoaded,
             clouds,
             wind,
             city,
-            country 
+            country
         } = this.state;
         let iconClass = this.mapWeatherIcon(weatherDesc.icon)
         let currTemp = Math.round(this.kelvinToCelsius(weatherData.temp))
+        let windDirection = `wi wi-wind from-${wind.deg}-deg`
 
         return (
-            (!weatherLoaded ? 
+            (!weatherLoaded ?
                 <div id="Weather"></div>
             :
-                <div id="Weather">
-                    <div className={iconClass}></div>
-                    <span> {currTemp}° | {weatherData.pressure} hPa | {wind.speed} m/s from {wind.deg} deg</span>
-                    <div className="text-center">
+                <div id="Weather" className="text-center">
+                    <span className={iconClass}></span>
+                    <span>
+                        {currTemp}° |
+                        {weatherData.pressure} hPa |
+                        {wind.speed} m/s
+                            <span className={windDirection}></span>
+                    </span>
+                    <div>
                         <span>{city}, {country}</span>
                     </div>
                 </div>
