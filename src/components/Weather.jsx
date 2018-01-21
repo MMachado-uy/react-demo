@@ -56,6 +56,7 @@ class Weather extends React.Component {
                 .then((res) => {
                     if (res.status >= 200 && res.status < 300) {
                         let { latitude, longitude, city, country_name } = res.data
+ 
 						this.setState({
                             lat: latitude,
                             lon: longitude,
@@ -79,15 +80,14 @@ class Weather extends React.Component {
 	getCurrentWeather() {
         let { lat, lon } = this.state
         
-        console.log("{ lat, lon } ", { lat, lon });
 		axios.get(`//api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=f560f5686c9d44522da78432786fa3f6`)
 		.then((res) => {
             let { clouds, wind } = res.data
-            let { city, country, refreshEvery } = this.state
+            let { city, country } = this.state
 
             if (city === '' || country === '') {
                 city = res.data.name
-                country = res.data.sys.country
+                country =  Utils.mapCountryName(res.data.sys.country)
             }
 
             let weatherDesc = res.data.weather[0]
