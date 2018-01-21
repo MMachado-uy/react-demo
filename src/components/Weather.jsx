@@ -1,5 +1,8 @@
 import React from 'react'
 import axios from 'axios'
+import Loader from './Loader.jsx'
+
+import * as Utils from '../utils/utils'
 
 class Weather extends React.Component {
     constructor(props) {
@@ -14,7 +17,8 @@ class Weather extends React.Component {
             clouds: {},
             wind: {},
             city: '',
-            country: ''
+            country: '',
+            refreshEvery: this.props.refreshEvery
 		};
 	}
 
@@ -22,12 +26,34 @@ class Weather extends React.Component {
         this.getClientLocationAndWeather()
     }
 
+    componentDidMount() {
+        let { refreshEvery } = this.state
+        setInterval(() => this.getCurrentWeather(), refreshEvery)
+    }
+
     getClientLocationAndWeather() {
+        if ('geolocation' in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                (location) =>{
+                    this.setState({
+                        lat: location.coords.latitude,
+                        lon: location.coords.longitude
+                    }, () => {
+                        this.getCurrentWeather()
+                    })
+                }, 
+                (reject) => {
+                    this.getLocation()
+                })
+        }
+    }
+
+    getLocation() {
         axios.get(`//api.ipify.org`)
-        .then(res => {
+        .then((res) => {
             if (res.status >= 200 && res.status < 300) {
                 axios.get(`//freegeoip.net/json/${res.data}`)
-                .then(res => {
+                .then((res) => {
                     if (res.status >= 200 && res.status < 300) {
                         let { latitude, longitude, city, country_name } = res.data
 						this.setState({
@@ -35,7 +61,7 @@ class Weather extends React.Component {
                             lon: longitude,
                             city,
                             country: country_name
-                        }, res => {
+                        }, (res) => {
 							this.getCurrentWeather()
 						})
                     }
@@ -51,13 +77,19 @@ class Weather extends React.Component {
     }
 
 	getCurrentWeather() {
-		let { lat, lon } = this.state
-
+        let { lat, lon } = this.state
+        
+        console.log("{ lat, lon } ", { lat, lon });
 		axios.get(`//api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=f560f5686c9d44522da78432786fa3f6`)
-		.then(res => {
+		.then((res) => {
             let { clouds, wind } = res.data
-            let city = res.data.name
-            let country = res.data.sys.country
+            let { city, country, refreshEvery } = this.state
+
+            if (city === '' || country === '') {
+                city = res.data.name
+                country = res.data.sys.country
+            }
+
             let weatherDesc = res.data.weather[0]
             let weatherData = res.data.main
 
@@ -66,54 +98,11 @@ class Weather extends React.Component {
                 weatherData,
                 weatherLoaded: true,
                 clouds,
-                wind
+                wind,
+                city,
+                country
             })
 		})
-    }
-
-    mapWeatherIcon(apiCode) {
-        let iconClass = ''
-
-        let iconMap = {
-            '01d': 'wi wi-day-sunny',
-            '01n': 'wi wi-night-clear',
-            '02d': 'wi wi-day-cloudy',
-            '02n': 'wi wi-night-cloudy',
-            '03d': 'wi wi-cloud',
-            '03n': 'wi wi-cloud',
-            '04d': 'wi wi-cloudy',
-            '04n': 'wi wi-cloudy',
-            '09d': 'wi wi-rain',
-            '09n': 'wi wi-rain',
-            '10d': 'wi wi-day-rain',
-            '10n': 'wi wi-night-rain',
-            '11d': 'wi wi-thunderstorm',
-            '11n': 'wi wi-thunderstorm',
-            '13d': 'wi wi-snow',
-            '13n': 'wi wi-snow',
-            '50d': 'wi wi-fog',
-            '50n': 'wi wi-fog'
-        }
-
-        if (typeof iconMap[apiCode] === 'undefined') {
-            iconClass = 'wi wi-na'
-        } else {
-            iconClass = iconMap[apiCode]
-        }
-
-        return iconClass
-    }
-
-    kelvinToCelsius(kelvin) {
-        return kelvin - 273.15
-    }
-
-    capitalize(string) {
-        let result = ''
-        if (string) {
-            result = string.charAt(0).toUpperCase() + string.slice(1);
-        }
-        return result
     }
 
     render() {
@@ -126,13 +115,15 @@ class Weather extends React.Component {
             city,
             country
         } = this.state;
-        let iconClass = this.mapWeatherIcon(weatherDesc.icon)
-        let currTemp = Math.round(this.kelvinToCelsius(weatherData.temp))
+        let iconClass = Utils.mapWeatherIcon(weatherDesc.icon)
+        let currTemp = Utils.kelvinToCelsius(weatherData.temp)
         let windDirection = `wi wi-wind from-${wind.deg}-deg`
 
         return (
             (!weatherLoaded ?
-                <div id="Weather"></div>
+                <div id="Weather">
+                    <Loader />
+                </div>
             :
                 <div id="Weather" className="text-center">
                     <span className={iconClass}></span>

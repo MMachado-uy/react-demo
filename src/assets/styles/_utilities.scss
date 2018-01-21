@@ -3,7 +3,7 @@
 }
 
 .fixed {
-    position: fixed;
+    position: fixed;    
 }
 
 .top {     
@@ -46,4 +46,46 @@
     &right {
         text-align: right;
     }
-} 
+}
+
+.loader {
+    height: 40px;
+    margin: 0 auto;
+    position: relative;
+    width: 40px;
+    
+    .bouncer-1, 
+    .bouncer-2 {
+        background-color: #333;
+        border-radius: 50%;
+        height: 100%;
+        left: 0;
+        opacity: 0.6;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        
+        -webkit-animation: bounce 2.0s infinite ease-in-out;
+                animation: bounce 2.0s infinite ease-in-out;
+    }
+        
+    .bouncer-2 {
+        -webkit-animation-delay: -1.0s;
+                animation-delay: -1.0s;
+    }
+}
+    
+@-webkit-keyframes bounce {
+    0%, 100% { -webkit-transform: scale(0.0) }
+    50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes bounce {
+    0%, 100% { 
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    } 50% { 
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
+}

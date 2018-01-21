@@ -8,9 +8,9 @@ body {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    color: rgb(51, 51, 51);
+    color: $font-color;
     font-family: Helvetica,Arial;
     height: 100%;
     margin: 0;
-    text-shadow: rgb(255, 255, 255) 2px 2px 1px;
+    text-shadow: $font-shadow 2px 2px 1px;
 }

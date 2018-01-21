@@ -4,9 +4,18 @@ $md: 768px;
 $lg: 992px;
 $xl: 1200px;
 
+// Palette
+$black: #000;
+$dark-grey: #333;
+$mid-grey: #666;
+$light-grey: #bbb;
+$white: #fff;
+
 // Variables
 $baseFontSize: 15vw;
 $screen-margin: 5px;
+$font-color: $dark-grey;
+$font-shadow: $white;
 
 // Vendor
 $wi-path: '../fonts';

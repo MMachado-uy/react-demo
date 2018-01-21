@@ -14,7 +14,9 @@ class App extends React.Component {
             <div>
                 <GHLink />
                 <Clock />
-                <Weather />
+                <Weather 
+                    refreshEvery={1800000}
+                />
             </div>
         )
     }
