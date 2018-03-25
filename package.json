@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run clean:dist && webpack --progress --profile --colors --optimize-minimize",
+    "build:prod": "npm run clean:dist && webpack --optimize-minimize",
     "clean:dist": "rimraf -- docs",
     "start": "webpack-dev-server --open",
+    "start:prod": "npm run build:prod && webpack-dev-server",
     "start-hard": "npm run build && npm start"
   },
   "author": "Mauricio Machado",

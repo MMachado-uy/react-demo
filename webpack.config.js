@@ -6,8 +6,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve('docs'),
-        filename: 'bundle.js',
-        sourceMapFilename: '[file].map'
+        filename: 'bundle.js'
     },
     devtool: 'source-map',
     module: {
@@ -16,8 +15,10 @@ module.exports = {
                 test: /\.jsx?$/,
                 loader: "babel-loader",
                 query: {
-                    presets: ['react', 'es2015', 'stage-2']
-                }
+                    presets: ['react', 'es2015', 'stage-2'],
+                    compact: true,
+                    sourceMap: false
+                },
             },
             {
                 test: /\.scss$/,
@@ -27,14 +28,14 @@ module.exports = {
                     },
                     {
                         loader: 'css-loader',
-                        options: { sourceMap: true }
+                        options: { sourceMap: false }
                     },
                     {
                         loader: 'resolve-url-loader'
                     },
                     {
                         loader: 'sass-loader',
-                        options: { sourceMap: true }
+                        options: { sourceMap: false }
                     }
                 ]
             },
@@ -42,7 +43,8 @@ module.exports = {
                 test: /\.(ico|jpg|jpeg|png|gif|webp|svg)(\?.*)?$/,
                 loader: 'file-loader',
                 query: {
-                    name: 'media/[name].[ext]'
+                    name: 'media/[name].[ext]',
+                    compact: true
                 }
             },
             {
@@ -69,5 +71,9 @@ module.exports = {
         modules: true,
         reasons: true,
         errorDetails: true
-      }
+      },
+    devServer: {
+        inline:true,
+        port: 3000
+    }
 }
