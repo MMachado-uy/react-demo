@@ -71,9 +71,5 @@ module.exports = {
         modules: true,
         reasons: true,
         errorDetails: true
-      },
-    devServer: {
-        inline:true,
-        port: 3000
-    }
+      }
 }
