@@ -8,7 +8,7 @@
     "build:prod": "npm run clean:dist && webpack --optimize-minimize",
     "clean:dist": "rimraf -- dist",
     "start": "webpack-dev-server --open --port 3000 --hot",
-    "start:prod": "npm run build:prod && http-server dist/ -p 3000 -g"
+    "start:prod": "http-server dist/ -p 3000 -g"
   },
   "author": "Mauricio Machado",
   "license": "MIT",
@@ -35,6 +35,8 @@
   },
   "devDependencies": {
     "envify": "^4.1.0",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.7.0",
     "uglify-js": "^3.3.16",
     "uglifyify": "^4.0.5"
   }
