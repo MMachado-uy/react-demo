@@ -1,11 +1,11 @@
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var path = require('path')
+var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: path.resolve('dist'),
+        path: path.resolve('docs'),
         filename: 'bundle.js'
     },
     devtool: 'source-map',
@@ -13,7 +13,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx?$/,
-                loader: "babel-loader",
+                loader: 'babel-loader',
                 query: {
                     presets: ['react', 'es2015', 'stage-2'],
                     compact: true,
@@ -71,5 +71,5 @@ module.exports = {
         modules: true,
         reasons: true,
         errorDetails: true
-      }
+    }
 }
