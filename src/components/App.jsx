@@ -1,8 +1,6 @@
 import React from 'react'
 
-import Clock from './Clock.jsx'
-import Weather from './Weather.jsx'
-import GHLink from './GHLink.jsx'
+import Background from './Background.jsx'
 
 class App extends React.Component {
     constructor(props) {
@@ -11,13 +9,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <GHLink />
-                <Clock />
-                <Weather 
-                    refreshEvery={1800000}
-                />
-            </div>
+            <Background />
         )
     }
 }

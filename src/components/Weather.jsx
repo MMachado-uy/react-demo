@@ -44,7 +44,8 @@ class Weather extends React.Component {
                 }, 
                 (reject) => {
                     this.getLocation()
-                })
+                }
+            )
         }
     }
 
@@ -80,7 +81,7 @@ class Weather extends React.Component {
 	getCurrentWeather() {
         let { lat, lon } = this.state
         
-		axios.get(`//api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=f560f5686c9d44522da78432786fa3f6`)
+		axios.get(`//api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${env.WEATHER_APPID}`)
 		.then((res) => {
             let { clouds, wind } = res.data
             let { city, country } = this.state

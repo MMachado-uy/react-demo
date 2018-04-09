@@ -3,14 +3,12 @@ html {
 }
 
 body {
-    background-attachment: fixed;
-    background-image: url(https://source.unsplash.com/random/1920x1080);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: $font-color;
-    font-family: Helvetica,Arial;
     height: 100%;
     margin: 0;
+}
+
+#App {
+    color: $font-color;
+    font-family: Helvetica,Arial;
     text-shadow: $font-shadow 2px 2px 1px;
 }

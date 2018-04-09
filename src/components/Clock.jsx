@@ -17,7 +17,7 @@ class Clock extends React.Component {
         this.setState({
             date: new Date()
         }, () => {
-            document.title = this.state.date.toLocaleTimeString();
+            document.title = this.state.date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});;
         });
     }
 
@@ -50,7 +50,7 @@ class Clock extends React.Component {
         ]
 
         return (
-            <div id="Clock">
+            <div id="Clock" className="center">
                 <div className="hora">
                     <span className="large">
                         {(date.getHours() < 10) ? "0" + date.getHours() : date.getHours()}
