@@ -14,7 +14,7 @@ class Background extends React.Component {
             images: [],
             imgIndex: 0,
             background: '',
-            author: {}
+            author: ''
         }
     }
 
@@ -30,7 +30,7 @@ class Background extends React.Component {
 
                 setInterval(() => {
                     this.rotateImages()
-                }, 30000)
+                }, 300000)
             })
         })
     }
@@ -42,7 +42,7 @@ class Background extends React.Component {
             imgIndex = 0
 
         this.setState({
-            background: `url(${images[imgIndex].urls.regular})`,
+            background: `url(${images[imgIndex].urls.thumb})`,
             imgIndex: imgIndex + 1,
             author: images[imgIndex].user
         }, () => {
@@ -57,14 +57,14 @@ class Background extends React.Component {
                     client_id: env.UNSPLASH_ACCESS
                 }
             })
-            .then((res) => {
-                if (res.status === 200 && typeof res.data !== 'undefined') {
-                    resolve(res.data)
-                }
-            })
-            .catch((err) => {
-                reject()
-            })
+                .then((res) => {
+                    if (res.status === 200 && typeof res.data !== 'undefined') {
+                        resolve(res.data)
+                    }
+                })
+                .catch((err) => {
+                    reject(err)
+                })
         })
     }
 
@@ -82,7 +82,7 @@ class Background extends React.Component {
                     author={this.state.author}
                 />
             </div>
-        );
+        )
     }
 }
 
