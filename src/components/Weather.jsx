@@ -6,10 +6,10 @@ import * as Utils from '../utils/utils'
 
 class Weather extends React.Component {
     constructor(props) {
-		super(props);
+        super(props)
 
-		this.state = {
-			lat: '',
+        this.state = {
+            lat: '',
             lon: '' ,
             weatherDesc: {},
             weatherData: {},
@@ -19,8 +19,8 @@ class Weather extends React.Component {
             city: '',
             country: '',
             refreshEvery: this.props.refreshEvery
-		};
-	}
+        }
+    }
 
     componentWillMount() {
         this.getClientLocationAndWeather()
@@ -42,7 +42,7 @@ class Weather extends React.Component {
                         this.getCurrentWeather()
                     })
                 }, 
-                (reject) => {
+                () => {
                     this.getLocation()
                 }
             )
@@ -51,59 +51,59 @@ class Weather extends React.Component {
 
     getLocation() {
         axios.get(`//api.ipify.org`)
-        .then((res) => {
-            if (res.status >= 200 && res.status < 300) {
-                axios.get(`//freegeoip.net/json/${res.data}`)
-                .then((res) => {
-                    if (res.status >= 200 && res.status < 300) {
-                        let { latitude, longitude, city, country_name } = res.data
- 
-						this.setState({
-                            lat: latitude,
-                            lon: longitude,
-                            city,
-                            country: country_name
-                        }, (res) => {
-							this.getCurrentWeather()
-						})
-                    }
-                }).catch(error => {
-					console.log('Error calling the geolocation API')
-				})
-            } else {
+            .then((res) => {
+                if (res.status >= 200 && res.status < 300) {
+                    axios.get(`//freegeoip.net/json/${res.data}`)
+                        .then((res) => {
+                            if (res.status >= 200 && res.status < 300) {
+                                let { latitude, longitude, city, country_name } = res.data
+        
+                                this.setState({
+                                    lat: latitude,
+                                    lon: longitude,
+                                    city,
+                                    country: country_name
+                                }, () => {
+                                    this.getCurrentWeather()
+                                })
+                            }
+                        }).catch(() => {
+                            console.log('Error calling the geolocation API')
+                        })
+                } else {
+                    console.log('Error calling the weather API')
+                }
+            }).catch(error => {
                 console.log('Error calling the weather API')
-            }
-        }).catch(error => {
-            console.log('Error calling the weather API')
-        })
+            })
     }
 
-	getCurrentWeather() {
+    getCurrentWeather() {
         let { lat, lon } = this.state
         
-		axios.get(`//api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${env.WEATHER_APPID}`)
-		.then((res) => {
-            let { clouds, wind } = res.data
-            let { city, country } = this.state
+        axios.get(`//api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${env.WEATHER_APPID}`)
+            .then((res) => {
+                let { clouds, wind } = res.data
+                let { city, country } = this.state
 
-            if (city === '' || country === '') {
-                city = res.data.name
-                country =  Utils.mapCountryName(res.data.sys.country)
-            }
+                if (city === '' || country === '') {
+                    city = res.data.name
+                    country =  Utils.mapCountryName(res.data.sys.country)
+                }
 
-            let weatherDesc = res.data.weather[0]
-            let weatherData = res.data.main
+                let weatherDesc = res.data.weather[0]
+                let weatherData = res.data.main
 
-            this.setState({
-                weatherDesc,
-                weatherData,
-                weatherLoaded: true,
-                clouds,
-                wind,
-                city,
-                country
+                this.setState({
+                    weatherDesc,
+                    weatherData,
+                    weatherLoaded: true,
+                    clouds,
+                    wind,
+                    city,
+                    country
+                })
             })
-		})
     }
 
     render() {
@@ -115,7 +115,7 @@ class Weather extends React.Component {
             wind,
             city,
             country
-        } = this.state;
+        } = this.state
         let iconClass = Utils.mapWeatherIcon(weatherDesc.icon)
         let currTemp = Utils.kelvinToCelsius(weatherData.temp)
         let windDirection = `wi wi-wind from-${wind.deg}-deg`
@@ -125,14 +125,14 @@ class Weather extends React.Component {
                 <div id="Weather">
                     <Loader />
                 </div>
-            :
+                :
                 <div id="Weather" className="text-center">
                     <span className={iconClass}></span>
                     <span>
                         {currTemp}° |
                         {weatherData.pressure} hPa |
                         {wind.speed} m/s
-                            <span className={windDirection}></span>
+                        <span className={windDirection}></span>
                     </span>
                     <div>
                         <span>{city}, {country}</span>

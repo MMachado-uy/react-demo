@@ -4,7 +4,7 @@ import GHLogo from '../assets/images/github.png'
 
 class GHLink extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
     }
 
     render() {
@@ -14,7 +14,7 @@ class GHLink extends React.Component {
                     <img src={GHLogo} alt="Github Logo"/>
                 </a>
             </div>
-        );
+        )
     }
 }
 
