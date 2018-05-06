@@ -7,70 +7,94 @@ import GHLink from './GHLink.jsx'
 import ImgCredit from './ImgCredit.jsx'
 
 class Background extends React.Component {
+    
     constructor(props) {
         super(props);
-
+        
         this.state = {
-            images: [],
-            imgIndex: 0,
+            image: '',
             background: '',
-            author: ''
+            author: '',
+            sizeTracker: '',
+            imageSizes: ['thumb', 'small', 'regular', 'raw', 'full']
         }
+        
+    }
+    
+    componentDidMount() {
+        console.log('DID MOUNT')
+        this.getImage()        
+        setInterval(
+            () => this.getImage(),
+            300000
+        )
     }
 
-    componentWillMount() {
-        this.getImages().then((res) => {
-            let images = res
-
-            this.setState({
-                images: res
-            }, () => {
-
-                this.rotateImages()
-
-                setInterval(() => {
-                    this.rotateImages()
-                }, 300000)
-            })
+    // Get a random Image
+    getImage() {
+        console.log('Get Image')
+        axios.get('https://api.unsplash.com/photos/random/', {
+            params: {
+                client_id: env.UNSPLASH_ACCESS
+            }
+        }).then((res) => {
+            console.log('Get Image - Response')
+            if (res.status === 200 && typeof res.data !== 'undefined') {
+                console.log("res.data ", res.data);
+                this.setState({ // Set the image dta
+                    image: res.data,
+                    author: res.data.user
+                }, () => {
+                    this.loadNextSize();    // Start the size rotation
+                })
+            }
+        })
+        .catch((err) => {
+            // TODO: Do something
         })
     }
 
-    rotateImages() {
-        let { imgIndex, images } = this.state
-    
-        if (imgIndex === images.length)
-            imgIndex = 0
+    loadNextSize() {
+        console.log('Here')
+        let { sizeTracker, image, imageSizes, background } = this.state
+        console.log("sizeTracker ", sizeTracker);
+
+
+        if (sizeTracker === '') {
+            sizeTracker = 0
+
+            if (typeof image.urls[imageSizes[sizeTracker]] !== 'undefined') {
+                background = image.urls[imageSizes[sizeTracker]]
+            }
+        } else if (sizeTracker < imageSizes.length -1) {
+            sizeTracker++
+            
+            while (typeof image.urls[imageSizes[sizeTracker]] === 'undefined' 
+                   && sizeTracker < imageSizes.length -1) {         
+                sizeTracker++
+            }
+
+            background = image.urls[imageSizes[sizeTracker]]
+            console.log("sizeTracker ", sizeTracker);
+            console.log("imageSizes[sizeTracker] ", imageSizes[sizeTracker]);
+            console.log("image.urls ", image.urls);
+            console.log("background ", background);
+        }
 
         this.setState({
-            background: `url(${images[imgIndex].urls.thumb})`,
-            imgIndex: imgIndex + 1,
-            author: images[imgIndex].user
-        }, () => {
-            console.log(this.state.author)
-        })
-    }
-
-    getImages() {
-        return new Promise((resolve, reject) => {
-            axios.get('https://api.unsplash.com/photos/curated/', {
-                params: {
-                    client_id: env.UNSPLASH_ACCESS
-                }
-            })
-                .then((res) => {
-                    if (res.status === 200 && typeof res.data !== 'undefined') {
-                        resolve(res.data)
-                    }
-                })
-                .catch((err) => {
-                    reject(err)
-                })
+            background,
+            sizeTracker
         })
     }
 
     render() {
+        let { image, background } = this.state
+ console.log("background ", background);
+ console.log("image ", image);
+
         return (
-            <div id="Background" style={{ backgroundImage: this.state.background }}>
+            <div id="Background" style={{ backgroundImage: `url(${background})` }}>
+                <img rel="prefetch" hidden src={background} alt="" width="300" onLoad={this.loadNextSize.bind(this)}/>
                 <GHLink />
                 <div className="mid-col">
                     <Clock />
