@@ -17,7 +17,7 @@ module.exports = {
                 query: {
                     presets: ['react', 'es2015', 'stage-2'],
                     compact: true,
-                    sourceMap: false
+                    sourceMap: true
                 },
             },
             {
@@ -28,14 +28,11 @@ module.exports = {
                     },
                     {
                         loader: 'css-loader',
-                        options: { sourceMap: false }
-                    },
-                    {
-                        loader: 'resolve-url-loader'
+                        options: { sourceMap: true }
                     },
                     {
                         loader: 'sass-loader',
-                        options: { sourceMap: false }
+                        options: { sourceMap: true }
                     }
                 ]
             },
