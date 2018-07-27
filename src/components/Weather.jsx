@@ -44,7 +44,8 @@ class Weather extends React.Component {
                 }, 
                 (reject) => {
                     this.getLocation()
-                })
+                }
+            )
         }
     }
 
@@ -52,9 +53,8 @@ class Weather extends React.Component {
         axios.get(`//api.ipify.org`)
         .then((res) => {
             if (res.status >= 200 && res.status < 300) {
-                axios.get(`//api.ipstack.com/${res.data}?access_key=33017bb5575472317731a769d9324a2f`)
+                axios.get(`http://api.ipstack.com/${res.data}?access_key=33017bb5575472317731a769d9324a2f`)
                 .then((res) => {
-                    console.log("res", res);
                     if (res.status >= 200 && res.status < 300) {
                         let { latitude, longitude, city, country_name } = res.data
  
