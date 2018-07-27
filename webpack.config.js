@@ -1,6 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     entry: './src/index.js',
@@ -10,7 +11,7 @@ module.exports = {
     },
     devtool: 'source-map',
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
@@ -23,19 +24,11 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: { sourceMap: true }
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: { sourceMap: true }
-                    }
+                  MiniCssExtractPlugin.loader,
+                  "css-loader",
+                  "sass-loader"
                 ]
-            },
+              },
             {
                 test: /\.(ico|jpg|jpeg|png|gif|webp|svg)(\?.*)?$/,
                 loader: 'file-loader',
@@ -61,6 +54,10 @@ module.exports = {
             template: 'index.html',
             filename: 'index.html',
             inject: 'body'
+        }),
+        new MiniCssExtractPlugin({
+          filename: "[name].css",
+          chunkFilename: "[id].css"
         })
     ],
     stats: {
