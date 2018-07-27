@@ -5,15 +5,16 @@
         background-position: center center;
         background-repeat: no-repeat;
         background-size: cover;
-        filter: blur(10px);
+        filter: blur(20px);
         height: 100%;
-        transition : all 0.5s linear;
+        transition : all 1s linear;
         width: 100%;
         will-change: filter;
         position: absolute;
         top: 0;
         left: 0;
         z-index: -1;
+        transform: scale(1.2);
 
         &.loaded {
             filter: none;

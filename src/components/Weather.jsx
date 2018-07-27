@@ -126,7 +126,7 @@ class Weather extends React.Component {
                     <Loader />
                 </div>
             :
-                <div id="Weather" className="text-center">
+                <div id="Weather" className="text-center smaller">
                     <span className={iconClass}></span>
                     <span>
                         {currTemp}° |

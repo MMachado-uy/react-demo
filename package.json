@@ -7,8 +7,8 @@
     "build": "npm run clean:docs && webpack --progress --profile --colors --optimize-minimize --mode development",
     "build:prod": "npm run clean:docs && webpack --optimize-minimize --mode production",
     "clean:docs": "rimraf -- docs",
-    "start": "webpack-dev-server --open --port 3000 --hot",
-    "start:prod": "http-server docs/ -p 80 -g"
+    "start": "webpack-dev-server --open --port 3000 --hot --mode development",
+    "start:prod": "http-server docs/ -p 80 -g --mode production"
   },
   "author": "Mauricio Machado",
   "license": "MIT",

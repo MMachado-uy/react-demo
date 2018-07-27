@@ -4,10 +4,13 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        index: './src/index.js',
+        styles: './src/styles.js'
+    },
     output: {
         path: path.resolve('docs'),
-        filename: 'bundle.js'
+        filename: '[name].bundle.js'
     },
     devtool: 'source-map',
     module: {

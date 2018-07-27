@@ -5,7 +5,6 @@
 .fixed {
     position: fixed;    
 }
-
 .top {     
     &-left {
         top: $screen-margin;
@@ -29,6 +28,29 @@
         right: $screen-margin;
     }
 }
+
+// TEXT UTILS
+
+.large {
+    font-size: $baseFontSize;
+}
+
+.medium {
+    font-size: $baseFontSize / 2;
+}
+
+.small {
+    font-size: $baseFontSize / 4;
+}
+
+.smaller {
+    font-size: $baseFontSize / 6;
+}
+
+.smallest {
+    font-size: $baseFontSize / 8;
+}
+
 
 .text- {
     &center {

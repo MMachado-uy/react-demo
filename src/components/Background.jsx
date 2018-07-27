@@ -9,16 +9,25 @@ class Background extends React.Component {
         this.state = {
             loaded: false,
             hiRes: '',
-            loRes: ''
+            loRes: '',
+            photographerName: '',
+            photographerUrl: ''
         }
     }
 
     componentDidMount() {
         axios.get(`https://api.unsplash.com/photos/random/?client_id=b0e9949acd4d0ae24eae95da963d5bcca2deab2f5c8c32e34980b88c318e63f1&featured`)
         .then(res => {
+ console.log("res ", res);
+            let { user, urls } = res.data
+            let append = 'utm_source=react_clock&utm_medium=referral'
+            let photographerName = `${user.first_name} ${user.last_name}`
+
             this.setState({
-                hiRes: res.data.urls.full,
-                loRes: res.data.urls.thumb
+                hiRes: urls.full,
+                loRes: urls.thumb,
+                photographerName,
+                photographerUrl: `${user.links.html}?${append}`
             })
         })
     }
@@ -32,7 +41,7 @@ class Background extends React.Component {
     }
 
     render() {
-        let { loaded, hiRes, loRes } = this.state
+        let { loaded, hiRes, loRes, photographerName, photographerUrl } = this.state
         let style = {
             backgroundImage: (loaded ? `url(${hiRes})` : `url(${loRes})`)
         }
@@ -52,6 +61,11 @@ class Background extends React.Component {
                     alt=""
                     onLoad={this.imgLoaded.bind(this)}
                 />
+                {loaded ? 
+                    <div className="fixed bottom-right smallest">
+                        Photo by <a target="_blank" href={photographerUrl}>{photographerName}</a> on <a target="_blank" href="https://unsplash.com/?utm_source=react_clock&utm_medium=referral">Unsplash</a>
+                    </div>
+                : ''}
             </div>
         );
     }

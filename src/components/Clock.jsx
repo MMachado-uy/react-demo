@@ -57,7 +57,7 @@ class Clock extends React.Component {
                         :
                         {(date.getMinutes() < 10) ? "0" + date.getMinutes() : date.getMinutes()}
                     </span>
-                    <span className="small">
+                    <span className="medium">
                         {(date.getSeconds() < 10) ? '0' + date.getSeconds() : date.getSeconds()}
                     </span>
                 </div>
